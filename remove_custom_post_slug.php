@@ -1,3 +1,4 @@
+<?php
 // remove product_cat slug custom post type
 add_filter('request', 'remove_status_slug', 1, 1 );
 function remove_status_slug($query){
@@ -78,3 +79,4 @@ function gp_add_cpt_post_names_to_main_query( $query ) {
 	$query->set( 'post_type', array( 'post', 'page', 'portfolio', 'product' ) );
 }
 add_action( 'pre_get_posts', 'gp_add_cpt_post_names_to_main_query' );
+?>
