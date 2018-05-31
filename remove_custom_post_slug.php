@@ -78,3 +78,4 @@ function gp_add_cpt_post_names_to_main_query( $query ) {
 	$query->set( 'post_type', array( 'post', 'page', 'portfolio', 'product' ) );
 }
 add_action( 'pre_get_posts', 'gp_add_cpt_post_names_to_main_query' );
+?>
