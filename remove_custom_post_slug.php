@@ -1,7 +1,7 @@
 <?php
 // remove product_cat slug custom post type
-add_filter('request', 'remove_status_slug', 1, 1 );
-function remove_status_slug($query){
+add_filter('request', 'timo_remove_status_slug', 1, 1 );
+function timo_remove_status_slug($query){
 	$tax_name = 'product_cat'; // specify you taxonomy name here, it can be also 'category' or 'post_tag'
 	// Request for child terms differs, we should make an additional check
 	if( $query['attachment'] ) :
@@ -41,8 +41,8 @@ function remove_status_slug($query){
 	endif;
 	return $query; 
 }
-add_filter( 'term_link', 'rudr_term_permalink', 10, 3 );
-function rudr_term_permalink( $url, $term, $taxonomy ){
+add_filter( 'term_link', 'timo_rudr_term_permalink', 10, 3 );
+function timo_rudr_term_permalink( $url, $term, $taxonomy ){
 	$taxonomy_name = 'product_cat'; // your taxonomy name here
 	$taxonomy_slug = 'product-category'; // the taxonomy slug can be different with the taxonomy name (like 'post_tag' and 'tag' )
  
@@ -53,7 +53,7 @@ function rudr_term_permalink( $url, $term, $taxonomy ){
 }
 
 //remove custom post slug (product, your custom post slug ....)
-function gp_remove_cpt_slug( $post_link, $post, $leavename ) {
+function timo_gp_remove_cpt_slug( $post_link, $post, $leavename ) {
     if ( ('portfolio' == $post->post_type || 'product' == $post->post_type) && 'publish' == $post->post_status ) {
     $post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link );
         return $post_link;
@@ -61,8 +61,8 @@ function gp_remove_cpt_slug( $post_link, $post, $leavename ) {
     return $post_link;
 }
 
-add_filter( 'post_type_link', 'gp_remove_cpt_slug', 10, 3 );
-function gp_add_cpt_post_names_to_main_query( $query ) {
+add_filter( 'post_type_link', 'timo_gp_remove_cpt_slug', 10, 3 );
+function timo_gp_add_cpt_post_names_to_main_query( $query ) {
 	// Bail if this is not the main query.
 	if ( ! $query->is_main_query() ) {
 		return;
@@ -78,5 +78,5 @@ function gp_add_cpt_post_names_to_main_query( $query ) {
 	// Add CPT to the list of post types WP will include when it queries based on the post name.
 	$query->set( 'post_type', array( 'post', 'page', 'portfolio', 'product' ) );
 }
-add_action( 'pre_get_posts', 'gp_add_cpt_post_names_to_main_query' );
+add_action( 'pre_get_posts', 'timo_gp_add_cpt_post_names_to_main_query' );
 ?>
