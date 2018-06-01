@@ -55,7 +55,7 @@ function timo_rudr_term_permalink( $url, $term, $taxonomy ){
 //remove custom post slug (product, your custom post slug ....)
 function timo_gp_remove_cpt_slug( $post_link, $post, $leavename ) {
     if ( ('portfolio' == $post->post_type || 'product' == $post->post_type) && 'publish' == $post->post_status ) {
-    $post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link );
+    $post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link ); //enter your custom_post in if function
         return $post_link;
     }
     return $post_link;
