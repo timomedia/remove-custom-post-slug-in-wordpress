@@ -79,4 +79,23 @@ function timo_gp_add_cpt_post_names_to_main_query( $query ) {
 	$query->set( 'post_type', array( 'post', 'page', 'portfolio', 'product' ) );
 }
 add_action( 'pre_get_posts', 'timo_gp_add_cpt_post_names_to_main_query' );
+//redirect 301
+add_action('template_redirect', 'timo_old_term_redirect');
+function timo_old_term_redirect() {
+	
+	$taxonomy_name = 'product_cat';
+	$taxonomy_slug = 'product_cat';
+	
+	// exit the redirect function if taxonomy slug is not in URL
+	if( strpos( $_SERVER['REQUEST_URI'], $taxonomy_slug ) === FALSE)
+		return;
+
+	if( ( is_category() && $taxonomy_name=='category' ) || ( is_tag() && $taxonomy_name=='post_tag' ) || is_tax( $taxonomy_name ) ) :
+
+        	wp_redirect( site_url( str_replace($taxonomy_slug, '', $_SERVER['REQUEST_URI']) ), 301 );
+		exit();
+		
+	endif;
+
+}
 ?>
