@@ -4,7 +4,7 @@ add_filter('request', 'timo_remove_status_slug', 1, 1 );
 function timo_remove_status_slug($query){
 	$tax_name = 'product_cat'; // specify you taxonomy name here, it can be also 'category' or 'post_tag'
 	// Request for child terms differs, we should make an additional check
-	if( $query['attachment'] ) :
+	if( isset( $query['attachment'] ) && $query['attachment'] ) :
 		$include_children = true;
 		$name = $query['attachment'];
 	else:
